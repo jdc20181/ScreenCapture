@@ -30,7 +30,7 @@ Public Class Form1
         Try
             save.Title = "Save File"
             save.FileName = "Screenshot"
-            '  save.Filter = "png|*.png"
+         
             save.Filter = "Bitmap Image (.bmp)|*.bmp|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff"
             If save.ShowDialog = Windows.Forms.DialogResult.OK Then
                 PictureBox1.Image.Save(save.FileName, Drawing.Imaging.ImageFormat.Png)
@@ -45,15 +45,12 @@ Public Class Form1
 
     End Sub
     Public Sub AutoSave()
-        'Dim SavePath As String = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) & "ScreenShot-" & Now.ToString("ddd_dd_MM_yyyy_hh_mm_ss")
 
         Dim strfilename = My.Computer.FileSystem.SpecialDirectories.MyPictures & "/BeffsEasyCapture/" & "ScreenShot-" & Now.ToString("ddd_dd_MM_yyyy_hh_mm_ss") & ".png"
-        'PictureBox1.Image.Save(SavePath, Drawing.Imaging.ImageFormat.Png)
 
-        ' Me.PictureBox1.Image.Save(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyPictures & "/BeffsEasyCapture/", "ScreenShot-" & Now.ToString("ddd_dd_MM_yyyy_hh_mm_ss" & ".Png")))
         Me.PictureBox1.Image.Save(IO.Path.Combine(strfilename))
         Me.Text = "AutoSaved To: " & strfilename
-        PostToImgur(strfilename, "1d1225671adec37")
+            PostToImgur(strfilename, "ClientIDGoesHere")
 
     End Sub
 
@@ -83,14 +80,8 @@ Public Class Form1
         ToolStripDropDownButton1.Visible = False
     End Sub
 
-    Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
-        ' EasyCapSettings.Show()
-
-
-    End Sub
-    Private Shared Sub Main(ByVal args As String())
-        '  PostToImgur(PictureBox1, IMGUR_ANONYMOUS_API_KEY)
-    End Sub
+   
+ 
 
     Public Class ImgurImageData
         Public Property link() As String
@@ -120,7 +111,7 @@ Public Class Form1
         request.Method = "POST"
         request.ContentType = "application/x-www-form-urlencoded"
         request.ServicePoint.Expect100Continue = False
-        request.Headers("Authorization") = "Client-ID 1d1225671adec37"
+            request.Headers("Authorization") = "Client-ID PlaceHERE"
         Dim streamWriter As StreamWriter = New StreamWriter(request.GetRequestStream())
         streamWriter.Write(uploadRequestString)
         streamWriter.Close()
